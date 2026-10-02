@@ -10,3 +10,14 @@
 @media(min-width:1101px){.bridges-interface{height:280px}}
 
 .menu-ds-codec{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 30px}.menu-ds-readout{display:flex;flex-direction:column;gap:13px;width:45%;color:#71bdd7}.menu-ds-readout strong{font:200 33px Inter,sans-serif;color:#b2e9ed;letter-spacing:-2px}.menu-ds-readout>span{font:14px Barlow Condensed,sans-serif;letter-spacing:3px}.menu-ds-readout>b{font:12px Barlow Condensed,sans-serif;letter-spacing:2px;font-weight:400}.menu-ds-readout small{font:7px/1.8 IBM Plex Mono,monospace;letter-spacing:1px;color:#689bb2}.menu-ds-readout em{font:18px Inter,sans-serif;border-bottom:1px solid #558394;padding-bottom:5px}.menu-projection{position:relative;width:45%;height:210px}.menu-projection img{width:100%;height:100%;object-fit:cover;object-position:65% 25%;filter:grayscale(1) sepia(1) hue-rotate(150deg) saturate(2.8);mix-blend-mode:screen;clip-path:polygon(30% 0,70% 0,90% 25%,90% 70%,100% 100%,0 100%,10% 70%,10% 25%);mask-image:linear-gradient(#000 70%,transparent)}.menu-projection svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#8edfff77;stroke-width:.5;pointer-events:none}@media(max-width:460px){.menu-ds-codec{padding:15px 18px}.menu-projection{height:180px}.menu-ds-readout strong{font-size:29px}.menu-ds-readout>b{font-size:10px;letter-spacing:1px}}
+/* CRT raster and a slow rolling refresh band across the codec call. */
+.codec-unit,.menu-codec{position:relative;isolation:isolate}
+.codec-unit::after,.menu-codec::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,#00180c38 3px,#94eebf0c 4px);background-size:100% 4px;animation:codec-raster-drift 1s linear infinite}
+.codec-unit::before,.menu-codec::before{content:'';position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,transparent 42%,#94eebf06 46%,#94eebf16 50%,#00140d22 53%,transparent 58%,transparent 100%);background-size:100% 250%;background-position:0 180%;animation:codec-refresh-roll 7s linear infinite}
+@keyframes codec-raster-drift{to{background-position:0 4px}}
+@keyframes codec-refresh-roll{to{background-position:0 -80%}}
+@media(prefers-reduced-motion:reduce){.codec-unit::after,.menu-codec::after{animation:none}.codec-unit::before,.menu-codec::before{display:none}}
+.portrait::after{background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,#001a0c66 3px,#9aebbf12 4px);background-size:100% 4px;animation:codec-portrait-raster .75s linear infinite}
+.portrait.snake::after{animation-delay:-.35s}
+@keyframes codec-portrait-raster{to{background-position:0 4px}}
+@media(prefers-reduced-motion:reduce){.portrait::after{animation:none}}
