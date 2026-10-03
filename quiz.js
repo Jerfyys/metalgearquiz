@@ -4,8 +4,8 @@ function shareResults(){
  const status=document.createElement('p');status.setAttribute('role','status');status.style.fontSize='13px';
  const lines=[CHARACTER_ONLY?'DEATH STRANDING — Quote Quiz':'METAL GEAR — CODEC Quote Quiz'];
  if(!CHARACTER_ONLY){const placement=missionRank(score);lines.push('Codename: '+MGS_RANKS[placement].name.toUpperCase()+' · Rank '+(placement+1)+' of '+MGS_RANKS.length)}
- lines.push('Score: '+score+'/'+MAX_POINTS+' · Accuracy: '+Math.round(score/MAX_POINTS*100)+'%');
- if(!CHARACTER_ONLY)lines.push('Games: '+gameScore+'/10');lines.push('Characters: '+characterScore+'/10','Think you can beat my score?',new URL('./',location.href).href);
+ lines.push('Score: '+score+'/'+MAX_POINTS);
+ lines.push('Think you can beat my score?',new URL('./',location.href).href);
  const text=lines.join('\n');
  button.onclick=async()=>{try{await navigator.clipboard.writeText(text);status.textContent='Results copied! Paste them wherever you want to share.'}catch{let field=panel.querySelector('textarea');if(!field){field=document.createElement('textarea');field.value=text;field.readOnly=true;field.setAttribute('aria-label','Your results to copy');field.style.cssText='display:block;width:100%;min-height:180px;margin-top:16px;background:#07130e;color:#e2ece7;border:1px solid #81ddad;padding:12px;font:13px monospace';panel.append(field)}field.focus();field.select();status.textContent='Select and copy your results below.'}};
  panel.append(button,status);return panel;
